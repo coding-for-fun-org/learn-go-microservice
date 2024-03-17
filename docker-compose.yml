@@ -1,4 +1,13 @@
 services:
+  frontend:
+    build:
+      context: ./frontend
+    restart: always
+    ports:
+      - "80:80"
+    deploy:
+      mode: replicated
+      replicas: 1
   broker-service:
     build:
       context: ./broker-service
