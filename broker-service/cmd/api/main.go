@@ -13,8 +13,6 @@ type Config struct{}
 func main() {
 	app := Config{}
 
-	log.Printf("Server running on port %s\n", webPort)
-
 	// define http Server
 	srv := &http.Server{
 		Addr:    fmt.Sprintf(":%s", webPort),
@@ -26,4 +24,6 @@ func main() {
 	if err != nil {
 		log.Panic(err)
 	}
+
+	log.Printf("Broker server running on port %s\n", webPort)
 }

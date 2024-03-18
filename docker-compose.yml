@@ -1,3 +1,6 @@
+volumes:
+  postgres-data:
+
 services:
   frontend:
     build:
@@ -8,6 +11,7 @@ services:
     deploy:
       mode: replicated
       replicas: 1
+
   broker-service:
     build:
       context: ./broker-service
@@ -17,3 +21,30 @@ services:
     deploy:
       mode: replicated
       replicas: 1
+
+  auth-service:
+    build:
+      context: ./auth-service
+    restart: always
+    ports:
+      - "8001:80"
+    deploy:
+      mode: replicated
+      replicas: 1
+    environment:
+      DSN: "host=postgres port=5432 user=postgres password=password dbname=mydb sslmode=disable timezone=UTC connect_timeout=5"
+
+  postgres:
+    image: "postgres:14.2"
+    restart: always
+    ports:
+      - "5432:5432"
+    deploy:
+      mode: replicated
+      replicas: 1
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mydb
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
