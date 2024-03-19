@@ -19,11 +19,11 @@ func main() {
 		Handler: app.routes(),
 	}
 
+	log.Printf("Broker server running on port %s\n", webPort)
+
 	// start the Server
 	err := srv.ListenAndServe()
 	if err != nil {
 		log.Panic(err)
 	}
-
-	log.Printf("Broker server running on port %s\n", webPort)
 }

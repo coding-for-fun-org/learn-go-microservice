@@ -40,15 +40,13 @@ func main() {
 		Handler: app.routes(),
 	}
 
-	log.Println("Before Server started")
+	log.Printf("Auth server running on port %s\n", webPort)
+
 	// start the Server
 	err := srv.ListenAndServe()
-	log.Println("Server started")
 	if err != nil {
 		log.Panic(err)
 	}
-
-	log.Printf("Auth server running on port %s\n", webPort)
 }
 
 func openDB(dsn string) (*sql.DB, error) {
